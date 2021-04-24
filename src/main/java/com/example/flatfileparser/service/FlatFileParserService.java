@@ -15,6 +15,7 @@ import org.beanio.builder.FixedLengthParserBuilder;
 import org.beanio.builder.StreamBuilder;
 import org.springframework.stereotype.Service;
 
+import com.example.flatfileparser.model.DetailsRecord;
 import com.example.flatfileparser.model.GroupRoot;
 import com.example.flatfileparser.model.HeaderRecord;
 import com.example.flatfileparser.model.TX52;
@@ -42,9 +43,14 @@ public class FlatFileParserService {
 	public void writePositionalFile() {
 
 		GroupRoot root = new GroupRoot();
+		DetailsRecord detailsRecord = new DetailsRecord();
+
 		root.setHeaderRecords(new ArrayList<>());
-		root.setTx52s(new ArrayList<>());
-		root.setTx57s(new ArrayList<>());
+
+		detailsRecord.setTx52s(new ArrayList<>());
+		detailsRecord.setTx57s(new ArrayList<>());
+
+		root.setDetailsRecord(detailsRecord);
 
 		HeaderRecord headerRecorda = new HeaderRecord();
 		HeaderRecord headerRecordb = new HeaderRecord();
@@ -95,13 +101,13 @@ public class FlatFileParserService {
 		root.getHeaderRecords().add(headerRecordb);
 		root.getHeaderRecords().add(headerRecordc);
 
-		root.getTx52s().add(tx52a);
-		root.getTx52s().add(tx52b);
-		root.getTx52s().add(tx52c);
+		detailsRecord.getTx52s().add(tx52a);
+		detailsRecord.getTx52s().add(tx52b);
+		detailsRecord.getTx52s().add(tx52c);
 
-		root.getTx57s().add(tx57a);
-		root.getTx57s().add(tx57b);
-		root.getTx57s().add(tx57c);
+		detailsRecord.getTx57s().add(tx57a);
+		detailsRecord.getTx57s().add(tx57b);
+		detailsRecord.getTx57s().add(tx57c);
 
 		writeBeanReaderFromGroup(root, "output.txt");
 
