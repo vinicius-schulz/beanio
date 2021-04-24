@@ -26,7 +26,7 @@ public class FlatFileParserService {
 	public void getFile() throws FileNotFoundException {
 
 		try {
-			InputStream payload = new FileInputStream(new File("./src/main/resources/sampleFile.txt"));
+			InputStream payload = new FileInputStream(new File("input.txt"));
 			GroupRoot beanReader = createBeanReaderFromGroup(GroupRoot.class, payload);
 			if (beanReader != null) {
 				writeBeanReaderFromGroup(GroupRoot.class, beanReader);
@@ -44,7 +44,7 @@ public class FlatFileParserService {
 				.parser(new FixedLengthParserBuilder()).addGroup(groupClass);
 		factory.define(streamBuilder);
 
-		BeanWriter out = factory.createWriter(streamName, new File("C:\\Users\\vinicius.schulz\\Desktop\\teste.txt"));
+		BeanWriter out = factory.createWriter(streamName, new File("output.txt"));
 		out.write(obj);
 		out.flush();
 		out.close();
