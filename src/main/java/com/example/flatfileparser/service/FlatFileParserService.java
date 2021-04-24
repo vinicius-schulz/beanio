@@ -26,10 +26,10 @@ public class FlatFileParserService {
 	public void getFile() throws FileNotFoundException {
 
 		try {
-			InputStream payload = new FileInputStream(new File("input.txt"));
-			GroupRoot beanReader = createBeanReaderFromGroup(GroupRoot.class, payload);
+			InputStream path = new FileInputStream(new File("input.txt"));
+			GroupRoot beanReader = createBeanReaderFromGroup(GroupRoot.class, path);
 			if (beanReader != null) {
-				writeBeanReaderFromGroup(GroupRoot.class, beanReader);
+				writeBeanReaderFromGroup(beanReader, "output.txt");
 			}
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
@@ -37,26 +37,26 @@ public class FlatFileParserService {
 
 	}
 
-	public void writeBeanReaderFromGroup(Class groupClass, Object obj) {
+	public <T> void writeBeanReaderFromGroup(T obj, String path) {
 		StreamFactory factory = StreamFactory.newInstance();
 		String streamName = "stream";
 		StreamBuilder streamBuilder = new StreamBuilder(streamName).format("fixedlength")
-				.parser(new FixedLengthParserBuilder()).addGroup(groupClass);
+				.parser(new FixedLengthParserBuilder()).addGroup(obj.getClass());
 		factory.define(streamBuilder);
 
-		BeanWriter out = factory.createWriter(streamName, new File("output.txt"));
+		BeanWriter out = factory.createWriter(streamName, new File(path));
 		out.write(obj);
 		out.flush();
 		out.close();
 	}
 
-	public <T> T createBeanReaderFromGroup(Class<T> clazz, InputStream payLoad) throws IOException {
+	public <T> T createBeanReaderFromGroup(Class<T> clazz, InputStream filePath) throws IOException {
 		StreamFactory factory = StreamFactory.newInstance();
 		String streamName = "stream";
 		StreamBuilder streamBuilder = new StreamBuilder(streamName).format("fixedlength")
 				.parser(new FixedLengthParserBuilder()).addGroup(clazz);
 		factory.define(streamBuilder);
-		try (InputStreamReader inputStreamReader = new InputStreamReader(payLoad)) {
+		try (InputStreamReader inputStreamReader = new InputStreamReader(filePath)) {
 			BeanReader beanReader = factory.createReader(streamName, inputStreamReader);
 			beanReader.setErrorHandler(new BeanReaderErrorHandlerSupport());
 			return (T) beanReader.read();
