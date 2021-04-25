@@ -124,10 +124,9 @@ public class FlatFileParserService {
 				.parser(new FixedLengthParserBuilder()).addGroup(obj.getClass());
 		factory.define(streamBuilder);
 
-		BeanWriter out = factory.createWriter(streamName, new File(path));
-		out.write(obj);
-		out.flush();
-		out.close();
+		try (BeanWriter out = factory.createWriter(streamName, new File(path))) {
+			out.write(obj);
+		}
 	}
 
 	public <T> T createBeanReaderFromGroup(Class<T> clazz, String path) throws IOException {
