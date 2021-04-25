@@ -137,16 +137,17 @@ public class FlatFileParserService {
 		factory.define(streamBuilder);
 		try (InputStream filePath = new FileInputStream(new File(path))) {
 			try (InputStreamReader inputStreamReader = new InputStreamReader(filePath)) {
-				BeanReader beanReader = factory.createReader(streamName, inputStreamReader);
-				beanReader.setErrorHandler(new BeanReaderErrorHandler() {
+				try (BeanReader beanReader = factory.createReader(streamName, inputStreamReader)) {
+					beanReader.setErrorHandler(new BeanReaderErrorHandler() {
 
-					@Override
-					public void handleError(BeanReaderException ex) throws Exception {
-						throw new BeanReaderException(ex.toString(), ex);
-					}
+						@Override
+						public void handleError(BeanReaderException ex) throws Exception {
+							throw new BeanReaderException(ex.toString(), ex);
+						}
 
-				});
-				return (T) beanReader.read();
+					});
+					return (T) beanReader.read();
+				}
 			}
 		}
 	}
