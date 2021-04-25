@@ -5,8 +5,6 @@ import java.util.List;
 import org.beanio.annotation.Group;
 import org.beanio.annotation.Record;
 
-import com.example.flatfileparser.cnab240.lotePagCcChOpDocTedPa.PagamentoLotePagCcChOpDocTedPa;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +19,7 @@ public class RootCnabArquivo {
 	private RegistroHeaderArquivo registroHeaderArquivo;
 
 	@Group(minOccurs = 1, maxOccurs = -1)
-	private List<PagamentoLotePagCcChOpDocTedPa> lote312s;
+	private List<LoteArquivo> lotes;
 
 	@Record(name = "RegistroTrailerArquivo", maxLength = 240, minOccurs = 1, maxOccurs = 1)
 	private RegistroTrailerArquivo registroTrailerArquivo;

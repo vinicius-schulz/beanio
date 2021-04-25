@@ -1,4 +1,4 @@
-package com.example.flatfileparser.cnab240.lotePagCcChOpDocTedPa;
+package com.example.flatfileparser.cnab240.lote.pagCcChOpDocTedPa;
 
 import org.beanio.annotation.Field;
 import org.beanio.annotation.Group;

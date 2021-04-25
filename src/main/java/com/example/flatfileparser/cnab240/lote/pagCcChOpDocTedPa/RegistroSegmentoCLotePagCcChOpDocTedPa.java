@@ -1,4 +1,4 @@
-package com.example.flatfileparser.cnab240.lotePagCcChOpDocTedPa;
+package com.example.flatfileparser.cnab240.lote.pagCcChOpDocTedPa;
 
 import org.beanio.annotation.Field;
 import org.beanio.annotation.Group;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RegistroSegmentoALotePagCcChOpDocTedPa {
+public class RegistroSegmentoCLotePagCcChOpDocTedPa {
 	@Field(at = 0, length = 3, padding = '0', align = Align.RIGHT)
 	private int banco;
 
@@ -25,7 +25,7 @@ public class RegistroSegmentoALotePagCcChOpDocTedPa {
 	@Field(at = 8, length = 5, padding = '0', align = Align.RIGHT)
 	private int numeroSequencialRegistroLote;
 
-	@Field(at = 13, length = 1, rid = true, literal = "A")
+	@Field(at = 13, length = 1, rid = true, literal = "C")
 	private String codigoSegmento;
 
 	@Field(at = 14, length = 226, padding = ' ')
