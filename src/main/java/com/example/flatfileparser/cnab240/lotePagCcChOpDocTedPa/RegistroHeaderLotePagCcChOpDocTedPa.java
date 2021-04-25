@@ -1,4 +1,4 @@
-package com.example.flatfileparser.cnab240.CcChOpDocTedPa;
+package com.example.flatfileparser.cnab240.lotePagCcChOpDocTedPa;
 
 import org.beanio.annotation.Field;
 import org.beanio.annotation.Group;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RegistroHeaderLoteCcChOpDocTedPa {
+public class RegistroHeaderLotePagCcChOpDocTedPa {
 	@Field(at = 0, length = 3, padding = '0', align = Align.RIGHT)
 	private int banco;
 
