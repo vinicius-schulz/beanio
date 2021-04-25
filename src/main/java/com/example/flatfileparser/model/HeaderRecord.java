@@ -11,9 +11,9 @@ import lombok.ToString;
 @ToString
 public class HeaderRecord {
 
-	@Record(maxLength = 6, name = "TX56")
+	@Record(maxLength = 6, name = "TX56", minOccurs = 1, maxOccurs = 1)
 	private TX56 tx56;
 
-	@Record(maxLength = 6, name = "TX67")
+	@Record(maxLength = 6, name = "TX67", minOccurs = 1, maxOccurs = 1)
 	private TX67 tx67;
 }

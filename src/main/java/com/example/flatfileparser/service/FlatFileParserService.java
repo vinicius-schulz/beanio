@@ -8,14 +8,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.beanio.BeanReader;
-import org.beanio.BeanReaderErrorHandlerSupport;
+import org.beanio.BeanReaderErrorHandler;
+import org.beanio.BeanReaderException;
 import org.beanio.BeanWriter;
 import org.beanio.StreamFactory;
 import org.beanio.builder.FixedLengthParserBuilder;
 import org.beanio.builder.StreamBuilder;
 import org.springframework.stereotype.Service;
 
-import com.example.flatfileparser.model.DetailsRecord;
+import com.example.flatfileparser.cnab240.RootCnabArquivo;
 import com.example.flatfileparser.model.GroupRoot;
 import com.example.flatfileparser.model.HeaderRecord;
 import com.example.flatfileparser.model.TX52;
@@ -32,8 +33,9 @@ public class FlatFileParserService {
 	public void readPositionalFile() {
 
 		try {
-			InputStream path = new FileInputStream(new File("input.txt"));
-			GroupRoot bean = createBeanReaderFromGroup(GroupRoot.class, path);
+			RootCnabArquivo bean = createBeanReaderFromGroup(RootCnabArquivo.class, "cnab240.txt");
+
+			writeBeanReaderFromGroup(bean, "cnab240-output.txt");
 			log.info(bean);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
@@ -42,15 +44,19 @@ public class FlatFileParserService {
 
 	public void writePositionalFile() {
 
+		GroupRoot root = mountGroup();
+
+		writeBeanReaderFromGroup(root, "output.txt");
+
+	}
+
+	private GroupRoot mountGroup() {
 		GroupRoot root = new GroupRoot();
-		DetailsRecord detailsRecord = new DetailsRecord();
 
 		root.setHeaderRecords(new ArrayList<>());
 
-		detailsRecord.setTx52s(new ArrayList<>());
-		detailsRecord.setTx57s(new ArrayList<>());
-
-		root.setDetailsRecord(detailsRecord);
+		root.setTx52s(new ArrayList<>());
+		root.setTx57s(new ArrayList<>());
 
 		HeaderRecord headerRecorda = new HeaderRecord();
 		HeaderRecord headerRecordb = new HeaderRecord();
@@ -101,16 +107,14 @@ public class FlatFileParserService {
 		root.getHeaderRecords().add(headerRecordb);
 		root.getHeaderRecords().add(headerRecordc);
 
-		detailsRecord.getTx52s().add(tx52a);
-		detailsRecord.getTx52s().add(tx52b);
-		detailsRecord.getTx52s().add(tx52c);
+		root.getTx52s().add(tx52a);
+		root.getTx52s().add(tx52b);
+		root.getTx52s().add(tx52c);
 
-		detailsRecord.getTx57s().add(tx57a);
-		detailsRecord.getTx57s().add(tx57b);
-		detailsRecord.getTx57s().add(tx57c);
-
-		writeBeanReaderFromGroup(root, "output.txt");
-
+		root.getTx57s().add(tx57a);
+		root.getTx57s().add(tx57b);
+		root.getTx57s().add(tx57c);
+		return root;
 	}
 
 	public <T> void writeBeanReaderFromGroup(T obj, String path) {
@@ -126,16 +130,25 @@ public class FlatFileParserService {
 		out.close();
 	}
 
-	public <T> T createBeanReaderFromGroup(Class<T> clazz, InputStream filePath) throws IOException {
+	public <T> T createBeanReaderFromGroup(Class<T> clazz, String path) throws IOException {
 		StreamFactory factory = StreamFactory.newInstance();
 		String streamName = "stream";
 		StreamBuilder streamBuilder = new StreamBuilder(streamName).format("fixedlength")
-				.parser(new FixedLengthParserBuilder()).addGroup(clazz);
+				.parser(new FixedLengthParserBuilder()).addGroup(clazz).occurs(1).strict();
 		factory.define(streamBuilder);
-		try (InputStreamReader inputStreamReader = new InputStreamReader(filePath)) {
-			BeanReader beanReader = factory.createReader(streamName, inputStreamReader);
-			beanReader.setErrorHandler(new BeanReaderErrorHandlerSupport());
-			return (T) beanReader.read();
+		try (InputStream filePath = new FileInputStream(new File(path))) {
+			try (InputStreamReader inputStreamReader = new InputStreamReader(filePath)) {
+				BeanReader beanReader = factory.createReader(streamName, inputStreamReader);
+				beanReader.setErrorHandler(new BeanReaderErrorHandler() {
+
+					@Override
+					public void handleError(BeanReaderException ex) throws Exception {
+						throw new BeanReaderException(ex.toString(), ex);
+					}
+
+				});
+				return (T) beanReader.read();
+			}
 		}
 	}
 }
