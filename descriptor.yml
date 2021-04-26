@@ -50,8 +50,7 @@ root:
   element: group
   type: RootCnabArquivo
   nodes:
-    no-1:
-      property: registroHeaderArquivo
+    - property: registroHeaderArquivo
       element: record
       type: RegistroHeaderArquivo
       name: RegistroHeaderArquivo
@@ -59,32 +58,28 @@ root:
       minOccurs: 1
       maxOccurs: 1
       nodes:
-        no-1:
-          property: banco
+        - property: banco
           element: field
           type: int
           at: 0
           length: 3
           padding: "0"
           align: right
-        no-2:
-          property: lote
+        - property: lote
           element: field
           type: int
           at: 3
           length: 4
           padding: "0"
           align: right
-        no-3:
-          property: registro
+        - property: registro
           element: field
           type: int
           at: 7
           length: 1
           rid: true
           literal: "0"
-        no-4:
-          property: branco
+        - property: branco
           element: field
           type: string
           at: 8
@@ -97,16 +92,14 @@ root:
       maxOccurs: -1 #sem limites
       collection: List #esta informação é opcional, a collection default é List
       nodes:
-        no-1:
-          property: lote312s
+        - property: lote312s
           element: group
           type: PagamentoLotePagCcChOpDocTedPa
           minOccurs: 1
           maxOccurs: -1 #sem limites
           collection: List #esta informação é opcional, a collection default é List
           nodes:
-            no-1:
-              property: registroHeaderLote
+            - property: registroHeaderLote
               element: record
               type: RegistroHeaderLotePagCcChOpDocTedPa
               name: RegistroHeaderLote
@@ -115,70 +108,63 @@ root:
               minOccurs: 1
               maxOccurs: 1
               nodes:
-                no-1:
-                  property: banco
+                - property: banco
                   element: field
                   type: int
                   at: 0
                   length: 3
                   padding: "0"
                   align: right
-                no-2:
-                  property: lote
+                - property: lote
                   element: field
                   type: int
                   at: 3
                   length: 4
                   padding: "0"
                   align: right
-                no-3:
-                  property: registro
+                - property: registro
                   element: field
                   type: int
                   at: 7
                   length: 1
                   rid: true
                   literal: "1"
-                no-4:
-                  property: tipoOperacao
+                - property: tipoOperacao
                   element: field
                   type: string
                   at: 8
                   length: 1
                   rid: true
                   literal: "C"
-                no-5:
-                  property: tipoServico
+                - property: tipoServico
                   element: field
                   type: int
                   at: 9
                   length: 2
                   padding: "0"
                   align: right
-                no-6:
-                  property: formaLancamento
+                - property: formaLancamento
                   element: field
                   type: int
                   at: 11
                   length: 2
                   padding: "0"
                   align: right                
-                no-7:
-                  property: versaoLayout
+                - property: versaoLayout
                   element: field
                   type: string
                   at: 13
                   length: 3
                   rid: true
                   literal: "046"
-                no-8:
-                  property: branco
+                - property: branco
                   element: field
                   type: string
                   at: 16
                   length: 224
                   padding: " "
-            registroSegmentoALote312:
+            
+            - property: registroSegmentoALote312
               element: record
               type: RegistroSegmentoALotePagCcChOpDocTedPa
               name: RegistroSegmentoALote312
@@ -187,54 +173,48 @@ root:
               minOccurs: 1
               maxOccurs: 1
               nodes:
-                no-1:
-                  property: banco
+                - property: banco
                   element: field
                   type: int
                   at: 0
                   length: 3
                   padding: "0"
                   align: right
-                no-2:
-                  property: lote
+                - property: lote
                   element: field
                   type: int
                   at: 3
                   length: 4
                   padding: "0"
                   align: right
-                no-3:
-                  property: registro
+                - property: registro
                   element: field
                   type: int
                   at: 7
                   length: 1
                   rid: true
                   literal: "3"
-                no-4:
-                  property: numeroSequencialRegistroLote
+                - property: numeroSequencialRegistroLote
                   element: field
                   type: int
                   at: 8
                   length: 5
                   padding: "0"
                   align: right
-                no-5:
-                  property: codigoSegmento
+                - property: codigoSegmento
                   element: field
                   type: string
                   at: 13
                   length: 1
                   rid: true
                   literal: "A"
-                no-6:
-                  property: branco
+                - property: branco
                   element: field
                   type: string
                   at: 14
                   length: 226
                   padding: " "
-            registroSegmentoBLote312:
+            - property: registroSegmentoBLote312
               element: record
               type: RegistroSegmentoBLotePagCcChOpDocTedPa
               name: RegistroSegmentoBLote312
@@ -243,54 +223,48 @@ root:
               minOccurs: 1
               maxOccurs: 1
               nodes:
-                no-1:
-                  property: banco
+                - property: banco
                   element: field
                   type: int
                   at: 0
                   length: 3
                   padding: "0"
                   align: right
-                no-2:
-                  property: lote
+                - property: lote
                   element: field
                   type: int
                   at: 3
                   length: 4
                   padding: "0"
                   align: right
-                no-3:
-                  property: registro
+                - property: registro
                   element: field
                   type: int
                   at: 7
                   length: 1
                   rid: true
                   literal: "3"
-                no-4:
-                  property: numeroSequencialRegistroLote
+                - property: numeroSequencialRegistroLote
                   element: field
                   type: int
                   at: 8
                   length: 5
                   padding: "0"
                   align: right
-                no-5:
-                  property: codigoSegmento
+                - property: codigoSegmento
                   element: field
                   type: string
                   at: 13
                   length: 1
                   rid: true
                   literal: "B"
-                no-6:
-                  property: branco
+                - property: branco
                   element: field
                   type: string
                   at: 14
                   length: 226
                   padding: " "
-            registroSegmentoCLote312:
+            - property: registroSegmentoCLote312
               element: record
               type: RegistroSegmentoCLotePagCcChOpDocTedPa
               name: RegistroSegmentoCLote312
@@ -299,54 +273,48 @@ root:
               minOccurs: 0
               maxOccurs: 1
               nodes:
-                no-1:
-                  property: banco
+                - property: banco
                   element: field
                   type: int
                   at: 0
                   length: 3
                   padding: "0"
                   align: right
-                no-2:
-                  property: lote
+                - property: lote
                   element: field
                   type: int
                   at: 3
                   length: 4
                   padding: "0"
                   align: right
-                no-3:
-                  property: registro
+                - property: registro
                   element: field
                   type: int
                   at: 7
                   length: 1
                   rid: true
                   literal: "3"
-                no-4:
-                  property: numeroSequencialRegistroLote
+                - property: numeroSequencialRegistroLote
                   element: field
                   type: int
                   at: 8
                   length: 5
                   padding: "0"
                   align: right
-                no-5:
-                  property: codigoSegmento
+                - property: codigoSegmento
                   element: field
                   type: string
                   at: 13
                   length: 1
                   rid: true
                   literal: "C"
-                no-6:
-                  property: branco
+                - property: branco
                   element: field
                   type: string
                   at: 14
                   length: 226
                   padding: " "
-            registroTrailerLote:
+            - property: registroTrailerLote
               element: record
               type: RegistroTrailerLotePagCcChOpDocTedPa
               name: RegistroTrailerLote
@@ -355,38 +323,34 @@ root:
               minOccurs: 1
               maxOccurs: 1
               nodes:
-                no-1:
-                  property: banco
+                - property: banco
                   element: field
                   type: int
                   at: 0
                   length: 3
                   padding: "0"
                   align: right
-                no-2:
-                  property: lote
+                - property: lote
                   element: field
                   type: int
                   at: 3
                   length: 4
                   padding: "0"
                   align: right
-                no-3:
-                  property: registro
+                - property: registro
                   element: field
                   type: int
                   at: 7
                   length: 1
                   rid: true
                   literal: "5"
-                no-4:
-                  property: branco
+                - property: branco
                   element: field
                   type: string
                   at: 8
                   length: 232
                   padding: " "
-    registroTrailerArquivo:
+    - property: registroTrailerArquivo
       element: record
       type: RegistroTrailerArquivo
       name: RegistroTrailerArquivo
@@ -394,32 +358,28 @@ root:
       minOccurs: 1
       maxOccurs: 1
       nodes:
-        no-1:
-          property: banco
+        - property: banco
           element: field
           type: int
           at: 0
           length: 3
           padding: "0"
           align: right
-        no-2:
-          property: lote
+        - property: lote
           element: field
           type: int
           at: 3
           length: 4
           padding: "0"
           align: right
-        no-3:
-          property: registro
+        - property: registro
           element: field
           type: int
           at: 7
           length: 1
           rid: true
           literal: "9"
-        no-4:
-          property: branco
+        - property: branco
           element: field
           type: string
           at: 8
