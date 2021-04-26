@@ -1,39 +1,44 @@
-#Descritivo
+# Descritivo
+  
+# Propriedades obrigatórias: version e root
+# Propriedades opcionais: lombok
 
-#Propriedades obrigatórias: version e root
-#Propriedades opcionais: lombok
-
-#version:                                       - Versão do arquivo (Obrigatório)
-#root:                                          - Nó base do arquivo (Obrigatório)
-#lombok.getter:     true, false                 - Define se as classes serão anotadas com @Getter (Opcional)
-#lombok.setter:     true, false                 - Define se as classes serão anotadas com @Setter (Opcional)
-#lombok.toString:   true, false                 - Define se as classes serão anotadas com @ToString (Opcional)
-#element:           group, record, field        - Tipo do nó, sendo que group pode possuir filhos group e record; record pode ter filhos do tipo field; field não tem nós filho (Obrigatório)
-#___________________________________________
-#                 | int, long, boolean,     |
-#                 | byte, short, char,      |
-#type:            | string, date, float,    |
-#                 | double, biginteger, url |   - Nome da classe em Java que será gerada (Obrigatório)
-#                 | decimal, calendar, uuid |
-#                 | ClassName               |
-#_________________|_________________________|
-#property:                                      - Nome da propriedade dentro da classe em Java (Obrigatório)
-#name:                                          - Nome da propriedade do nó criado (Opcional)
-#maxLength:                                     - Tamanho máximo da linha (Opcional)
-#minOccurs:                                     - Quantidade mínima de ocorrencias de um group, record ou field. Default value = 1 (Opcional)
-#maxOccurs:                                     - Quantidade maxima de ocorrencias de um group, record ou field. Default value = 1 (Opcional)
-#at:                                            - Posição no arquivo onde a informação será encontrada (Obrigatório)
-#length:                                        - Tamanho do campo onde a informação será armazenada (Obrigatório)
-#padding:                                       - Completar espaços a direita ou à esquerda do campo com o caracter definido no padding (Opcional)
-#align:             rigth, left                 - Alinhar conteúdo à direita ou a esquerda do campo (Opcional)
-#rid:               true, false                 - Define se a propriedade da classe é identificador do tipo do registro, de modo que a aplicação consiga fazer o parser para o objeto apropriado. Default value = false (Opcional)
-#literal:                                       - Define o literal que será usado para identificar o tipo do registro, de modo que a aplicação consiga fazer o parser para o objeto apropriado caso o rid tenha o valor igual a true (Opcional)
-#collection:        Map, List, etc              - Define o tipo da Coleção de dados; caso o minOccurs e maxOccurs esteja definido um range de tamanho maior do que 1, o sistema deve automaticamente gerar a propriedade com o tipo Collection<ClassName> definido ou o Default. Default value = List (Opcional)
-
-#Propriedade disponíveis por element
-#group:                                         - type, property, name, minOccurs, maxOccurs, collection
-#record:                                        - type, property, name, minOccurs, maxOccurs, maxLength, collection
-#field:                                         - type, property, length, at, padding, align, rid, literal
+# version:                                       - Versão do arquivo (Obrigatório)
+# root:                                          - Nó base do arquivo (Obrigatório)
+# lombok.getter:     true, false                 - Define se as classes serão anotadas com @Getter (Opcional)
+# lombok.setter:     true, false                 - Define se as classes serão anotadas com @Setter (Opcional)
+# lombok.toString:   true, false                 - Define se as classes serão anotadas com @ToString (Opcional)
+# element:           group, record, field        - Tipo do nó, sendo que group pode possuir filhos group e record; record pode ter filhos do tipo field; field não tem nós filho (Obrigatório)
+#____________________________________________
+#                  |       Primitivos        |
+#                  |_________________________|
+#                  | int, long, boolean,     |
+#                  | byte, short, char,      |   
+#                  | string, date, float,    |   - Para os element do tipo group e record, não devem ser aceitos os tipos primitivos (Obrigatório)
+# type:            | double, biginteger, url |   - Para o element do tipo field só podem ser aceitos os tipos primitivos (Obrigatório)
+#                  | decimal, calendar, uuid |
+#                  |_________________________|
+#                  |       Complexos         |
+#                  |_________________________|
+#                  | className               |
+#__________________|_________________________|
+# property:                                      - Nome da propriedade dentro da classe em Java (Obrigatório)
+# name:                                          - Nome da propriedade do nó criado (Opcional)
+# maxLength:                                     - Tamanho máximo da linha (Opcional)
+# minOccurs:                                     - Quantidade mínima de ocorrencias de um group, record ou field. Default value = 1 (Opcional)
+# maxOccurs:                                     - Quantidade maxima de ocorrencias de um group, record ou field. Default value = 1 (Opcional)
+# at:                                            - Posição no arquivo onde a informação será encontrada (Obrigatório)
+# length:                                        - Tamanho do campo onde a informação será armazenada (Obrigatório)
+# padding:                                       - Completar espaços a direita ou à esquerda do campo com o caracter definido no padding (Opcional)
+# align:             rigth, left                 - Alinhar conteúdo à direita ou a esquerda do campo (Opcional)
+# rid:               true, false                 - Define se a propriedade da classe é identificador do tipo do registro, de modo que a aplicação consiga fazer o parser para o objeto apropriado. Default value = false (Opcional)
+# literal:                                       - Define o literal que será usado para identificar o tipo do registro, de modo que a aplicação consiga fazer o parser para o objeto apropriado caso o rid tenha o valor igual a true (Opcional)
+# collection:        Map, List, etc              - Define o tipo da Coleção de dados; caso o minOccurs e maxOccurs esteja definido um range de tamanho maior do que 1, o sistema deve automaticamente gerar a propriedade com o tipo Collection<ClassName> definido ou o Default. Default value = List (Opcional)
+  
+# Propriedade disponíveis por element
+# group:                                         - type, property, name, minOccurs, maxOccurs, collection
+# record:                                        - type, property, name, minOccurs, maxOccurs, maxLength, collection
+# field:                                         - type, property, length, at, padding, align, rid, literal
 
 
 version: 1
