@@ -85,7 +85,7 @@ root:
           at: 8
           length: 232
           padding: " "
-    lotes: 
+    - property: lotes
       element: group
       type: LoteArquivo
       minOccurs: 1
@@ -163,7 +163,6 @@ root:
                   at: 16
                   length: 224
                   padding: " "
-            
             - property: registroSegmentoALote312
               element: record
               type: RegistroSegmentoALotePagCcChOpDocTedPa
