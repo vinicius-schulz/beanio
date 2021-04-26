@@ -14,7 +14,7 @@
 #                  |_________________________|
 #                  | int, long, boolean,     |
 #                  | byte, short, char,      |   
-#                  | string, date, float,    |   - Para os element do tipo group e record, não devem ser aceitos os tipos primitivos (Obrigatório)
+#                  | string, date, float,    |   - Para os element do tipo group e record, não devem ser aceitos os tipos primitivos, somente tipos complexos (Obrigatório)
 # type:            | double, biginteger, url |   - Para o element do tipo field só podem ser aceitos os tipos primitivos (Obrigatório)
 #                  | decimal, calendar, uuid |
 #                  |_________________________|
