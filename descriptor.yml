@@ -21,11 +21,12 @@
 #____________________________________________
 #                  |       Primitivos        |
 #                  |_________________________|
-#                  | Integet, Long, Boolean, |
-#                  | Byte, Short, Char,      |   
-#                  | String, Date, Float,    |   - Para os element do tipo group e record, não devem ser aceitos os tipos primitivos, somente tipos complexos (Obrigatório)
+#                  | Integer, Long, Boolean  |
+#                  | Byte, Short, Character  |   
+#                  | String, Date, Float     |   - Para os element do tipo group e record, não devem ser aceitos os tipos primitivos, somente tipos complexos (Obrigatório)
 # type:            | Double, BigInteger, URL |   - Para o element do tipo field só podem ser aceitos os tipos primitivos (Obrigatório)
 #                  | Decimal, Calendar, UUID |
+#                  | BigDecimal              |
 #                  |_________________________|
 #                  |       Complexos         |
 #                  |_________________________|
