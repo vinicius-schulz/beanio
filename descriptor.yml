@@ -408,7 +408,7 @@ root:
           type: int
           at: 3
           length: 4
-          padding: 0
+          padding: "0"
           align: right
         no-3:
           property: registro
