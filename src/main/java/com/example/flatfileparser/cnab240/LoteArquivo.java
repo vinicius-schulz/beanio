@@ -10,12 +10,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Group
 @Getter
 @Setter
 @ToString
 public class LoteArquivo {
-	
+
 	@Group(minOccurs = 0, maxOccurs = -1)
 	private List<PagamentoLotePagCcChOpDocTedPa> lote312s;
 
