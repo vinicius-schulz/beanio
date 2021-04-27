@@ -1,10 +1,7 @@
 package com.example.flatfileparser.service;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.beanio.BeanReader;
@@ -135,20 +132,16 @@ public class FlatFileParserService {
 		StreamBuilder streamBuilder = new StreamBuilder(streamName).format("fixedlength")
 				.parser(new FixedLengthParserBuilder()).addGroup(clazz).occurs(1).strict();
 		factory.define(streamBuilder);
-		try (InputStream filePath = new FileInputStream(new File(path))) {
-			try (InputStreamReader inputStreamReader = new InputStreamReader(filePath)) {
-				try (BeanReader beanReader = factory.createReader(streamName, inputStreamReader)) {
-					beanReader.setErrorHandler(new BeanReaderErrorHandler() {
+		try (BeanReader beanReader = factory.createReader(streamName, new File(path))) {
+			beanReader.setErrorHandler(new BeanReaderErrorHandler() {
 
-						@Override
-						public void handleError(BeanReaderException ex) throws Exception {
-							throw new BeanReaderException(ex.toString(), ex);
-						}
-
-					});
-					return (T) beanReader.read();
+				@Override
+				public void handleError(BeanReaderException ex) throws Exception {
+					throw new BeanReaderException(ex.toString(), ex);
 				}
-			}
+
+			});
+			return (T) beanReader.read();
 		}
 	}
 }
