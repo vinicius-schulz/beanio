@@ -8,6 +8,7 @@ import org.beanio.BeanReader;
 import org.beanio.BeanReaderErrorHandler;
 import org.beanio.BeanReaderException;
 import org.beanio.BeanWriter;
+import org.beanio.RecordContext;
 import org.beanio.StreamFactory;
 import org.beanio.builder.FixedLengthParserBuilder;
 import org.beanio.builder.StreamBuilder;
@@ -30,9 +31,10 @@ public class FlatFileParserService {
 	public void readPositionalFile() {
 
 		try {
-			RootCnabArquivo bean = createBeanReaderFromGroup(RootCnabArquivo.class, "cnab240.txt");
+			RootCnabArquivo bean = createBeanReaderFixedLengthFromGroup(RootCnabArquivo.class, "cnab240",
+					"cnab240.txt");
 
-			writeBeanReaderFromGroup(bean, "cnab240-output.txt");
+			writeBeanReaderFixedLengthFromGroup(bean, "cnab240", "cnab240-output.txt");
 			log.info(bean);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
@@ -43,7 +45,7 @@ public class FlatFileParserService {
 
 		GroupRoot root = mountGroup();
 
-		writeBeanReaderFromGroup(root, "output.txt");
+		writeBeanReaderFixedLengthFromGroup(root, "stream", "output.txt");
 
 	}
 
@@ -114,9 +116,8 @@ public class FlatFileParserService {
 		return root;
 	}
 
-	public <T> void writeBeanReaderFromGroup(T obj, String path) {
+	public <T> void writeBeanReaderFixedLengthFromGroup(T obj, String streamName, String path) {
 		StreamFactory factory = StreamFactory.newInstance();
-		String streamName = "stream";
 		StreamBuilder streamBuilder = new StreamBuilder(streamName).format("fixedlength")
 				.parser(new FixedLengthParserBuilder()).addGroup(obj.getClass());
 		factory.define(streamBuilder);
@@ -126,9 +127,9 @@ public class FlatFileParserService {
 		}
 	}
 
-	public <T> T createBeanReaderFromGroup(Class<T> clazz, String path) throws IOException {
+	public <T> T createBeanReaderFixedLengthFromGroup(Class<T> clazz, String streamName, String path)
+			throws IOException {
 		StreamFactory factory = StreamFactory.newInstance();
-		String streamName = "stream";
 		StreamBuilder streamBuilder = new StreamBuilder(streamName).format("fixedlength")
 				.parser(new FixedLengthParserBuilder()).addGroup(clazz).occurs(1).strict();
 		factory.define(streamBuilder);
@@ -137,6 +138,17 @@ public class FlatFileParserService {
 
 				@Override
 				public void handleError(BeanReaderException ex) throws Exception {
+					// nesta função é possível tratar os erros críticos q ocorrem durante a leitura
+					// do arquivo.
+					// o Objeto BeanReaderException armazena os erros em Fields e em Records de
+					// todas as linhas do arquivo.
+					// AS LINHAS ABAIXO SÃO SÓ UM EXEMPLO DE TRATAMENTO DO ERRO. PODEMOS CRIAR EXCEPTION ESPECÍFICAS, GRAVAR ARQUIVO COM CÓDIGOS DE ERRO, ETC.
+
+					for (int i = 0; i < ex.getRecordCount(); i++) {
+						RecordContext context = ex.getRecordContext(i);
+						log.info(context);
+					}
+
 					throw new BeanReaderException(ex.toString(), ex);
 				}
 
